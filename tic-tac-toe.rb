@@ -89,13 +89,13 @@ def another_round()
 end
 
 def display_grid(grid)
-    puts grid.slice(0, 3).join(" | ") + "\n_________\n\n" + grid.slice(3, 3).join(" | ") + "\n_________\n\n" + grid.slice(6, 3).join(" | ")
+    puts grid.slice(0, 3).join(" | ") + "\n--+---+--\n\n" + grid.slice(3, 3).join(" | ") + "\n--+---+--\n\n" + grid.slice(6, 3).join(" | ")
 end
 
 def start_game()
     grid = Array.new(9) { | i | i + 1}
     tokens = 0
-
+    
     name1, symbol1, name2, symbol2 = players_identity()
     player_one = Player.new(name1, symbol1)
     player_two = Player.new(name2, symbol2)
