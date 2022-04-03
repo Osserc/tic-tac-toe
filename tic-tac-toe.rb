@@ -7,26 +7,21 @@ class Player
 
 end
 
-def Token
+def play_round(grid, player_one, player_two)
+    position_grid = choose_spot(grid, player_one, player_two)
+    grid[position_grid] = player_one.symbol
+    display_grid(grid)
+end
 
-    @@number_of_tokens = 0
-
-    def initialize
-
-        @@number_of_tokens += 1
+def choose_spot(grid, player_one, player_two)
+    puts player_one.name + ", where do you want to place your token?"
+    position = gets.chomp.to_i
+    until grid.index(position) != nil do
+        puts "Invalid position, please enter a valid spot."
+        position = gets.chomp.to_i
     end
+    position_grid = grid.index(position)    
 end
-
-def players_name()
-    puts "Choose a name"
-    name = gets.chomp
-end
-
-def players_symbol()
-    puts "Choose a symbol"
-    symbol = gets.chomp
-end
-
 
 def players_identity()
     puts "Player 1, enter your name"
@@ -42,16 +37,14 @@ end
 
 def display_grid(grid)
     puts grid.slice(0, 3).join(" | ") + "\n_________\n\n" + grid.slice(3, 3).join(" | ") + "\n_________\n\n" + grid.slice(6, 3).join(" | ")
-    # puts "_________\n\n"
-    # puts grid.slice(3, 3).join(" | ")
-    # puts "_________\n\n"
-    # puts grid.slice(6, 3).join(" | ")
 end
 
 grid = Array.new(9) { | i | i + 1}
+tokens = 0
 display_grid(grid)
-name1, symbol1, name2, symbol2 = players_identity()
-player_one = Player.new(name1, symbol1)
-player_two = Player.new(name2, symbol2)
-puts player_one.name + " " + player_one.symbol
-puts player_two.name + " " + player_two.symbol
+# name1, symbol1, name2, symbol2 = players_identity()
+# player_one = Player.new(name1, symbol1)
+# player_two = Player.new(name2, symbol2)
+player_one = Player.new("Frodo", "F")
+player_two = Player.new("Sam", "S")
+play_round(grid, player_one, player_two)
