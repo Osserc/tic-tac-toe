@@ -17,6 +17,7 @@ def play_game(grid, tokens, player_one, player_two)
         tokens += 1
     end
     puts "Unfortunately, the game was a tie."
+    another_round()
 end
 
 def play_round(grid, tokens, player)
@@ -40,34 +41,51 @@ def check_game_state(grid, player)
         (grid.values_at(1, 4, 7).all?(player.symbol)) || (grid.values_at(2, 5, 8).all?(player.symbol)) ||
         (grid.values_at(3, 4, 5).all?(player.symbol)) || (grid.values_at(6, 7, 8).all?(player.symbol)) ||
         (grid.values_at(0, 4, 8).all?(player.symbol)) || (grid.values_at(2, 4, 6).all?(player.symbol)))
-        puts "Congratulations #{player.name}, you won!\nWould you like to play another round?\nType y for yes and n for no."
-        answer = gets.chomp
-        if answer == "y"
-            start_game()
-        elsif answer == "n"
-            exit
-        end
+        puts "Congratulations #{player.name}, you won!"
+        another_round()
     end
 end
 
 def players_identity()
     puts "Time for a nice game of good ol\' TicTacToe!\nPlayer 1, enter your name."
     name1 = gets.chomp
-    puts "Hello #{name1}, choose a symbol to represent you on the board."
+    until (name1 != '') do
+        puts "Invalid name, please choose a different one."
+        name1 = gets.chomp
+    end
+    puts "Hello #{name1}, choose a one-character symbol to represent you on the board."
     symbol1 = gets.chomp
+    until ((symbol1 != '') && (symbol1.length == 1)) do
+        puts "Invalid symbol, please choose a different one."
+        symbol1 = gets.chomp
+    end
     puts "Player 2, enter your name."
     name2 = gets.chomp
-    until name2 != name1 do
+    until ((name2 != name1) && (name2 != '')) do
         puts "Invalid name, please choose a different one."
         name2 = gets.chomp
     end
-    puts "Hello #{name2}, choose a symbol to represent you on the board."
+    puts "Hello #{name2}, choose a one-character symbol to represent you on the board."
     symbol2 = gets.chomp
-    until symbol2 != symbol1 do
+    until ((symbol2 != symbol1) && (symbol2 != '') && (symbol2.length == 1)) do
         puts "Invalid symbol, please choose a different one."
         symbol2 = gets.chomp
     end
     return name1, symbol1, name2, symbol2
+end
+
+def another_round()
+    puts "Would you like to play another round?\nType y for yes and n for no."
+    answer = gets.chomp
+    until ((answer == "y") || (answer == "n"))
+        puts "I\'sorry, I didn\'t catch that.\nWould you like to play another round?\nType y for yes and n for no."
+        answer.gets.chomp
+    end
+    if answer == "y"
+        start_game()
+    elsif answer == "n"
+        exit
+    end
 end
 
 def display_grid(grid)
