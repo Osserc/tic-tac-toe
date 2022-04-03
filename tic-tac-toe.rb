@@ -7,14 +7,26 @@ class Player
 
 end
 
-def play_round(grid, player_one, player_two)
-    position_grid = choose_spot(grid, player_one, player_two)
-    grid[position_grid] = player_one.symbol
+def play_game(grid, tokens, player_one, player_two)
+    until tokens == 9 do
+        if tokens.even? == true
+            play_round(grid, tokens, player_one)
+        else
+            play_round(grid, tokens, player_two)
+        end
+        tokens += 1
+    end
+end
+
+def play_round(grid, tokens, player)
+        position_grid = choose_spot(grid, player)
+        grid[position_grid] = player.symbol
     display_grid(grid)
 end
 
-def choose_spot(grid, player_one, player_two)
-    puts player_one.name + ", where do you want to place your token?"
+def choose_spot(grid, player)
+    
+    puts player.name + ", where do you want to place your token?"
     position = gets.chomp.to_i
     until grid.index(position) != nil do
         puts "Invalid position, please enter a valid spot."
@@ -47,4 +59,4 @@ display_grid(grid)
 # player_two = Player.new(name2, symbol2)
 player_one = Player.new("Frodo", "F")
 player_two = Player.new("Sam", "S")
-play_round(grid, player_one, player_two)
+play_game(grid, tokens, player_one, player_two)
