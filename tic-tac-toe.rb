@@ -80,8 +80,8 @@ class Game
         puts "Would you like to play another round?\nType y for yes and n for no."
         answer = gets.chomp
         until ((answer == "y") || (answer == "n"))
-            puts "I\'sorry, I didn\'t catch that.\nWould you like to play another round?\nType y for yes and n for no."
-            answer.gets.chomp
+            puts "I\'m sorry, I didn\'t catch that.\nWould you like to play another round?\nType y for yes and n for no."
+            answer = gets.chomp
         end
         if answer == "y"
             start_game()
